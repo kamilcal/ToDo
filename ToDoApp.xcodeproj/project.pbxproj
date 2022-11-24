@@ -14,6 +14,7 @@
 		D2DA3411292D5B8C0028B392 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2DA3410292D5B8C0028B392 /* Assets.xcassets */; };
 		D2DA3414292D5B8C0028B392 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2DA3412292D5B8C0028B392 /* LaunchScreen.storyboard */; };
 		D2DA341C292D5C170028B392 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2DA341B292D5C170028B392 /* TableViewController.swift */; };
+		D2FB825929300ECB00A9A01B /* CategoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2FB825829300ECB00A9A01B /* CategoryTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		D2DA3413292D5B8C0028B392 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D2DA3415292D5B8C0028B392 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2DA341B292D5C170028B392 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		D2FB825829300ECB00A9A01B /* CategoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +45,7 @@
 			isa = PBXGroup;
 			children = (
 				D2DA341B292D5C170028B392 /* TableViewController.swift */,
+				D2FB825829300ECB00A9A01B /* CategoryTableViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 			files = (
 				D2DA3405292D5B8B0028B392 /* AppDelegate.swift in Sources */,
 				D2DA3407292D5B8B0028B392 /* SceneDelegate.swift in Sources */,
+				D2FB825929300ECB00A9A01B /* CategoryTableViewController.swift in Sources */,
 				D2DA340F292D5B8B0028B392 /* ToDoApp.xcdatamodeld in Sources */,
 				D2DA341C292D5C170028B392 /* TableViewController.swift in Sources */,
 			);

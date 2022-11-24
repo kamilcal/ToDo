@@ -16,13 +16,19 @@ class TableViewController: UITableViewController {
     
     var data = [Item]()
     
+    var selectedCategory : Category? {
+        didSet{
+            loadItems()
+        }
+    }
     
     let managedObjectContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadItems()
+
         
-        fetch()
     }
     //    MARK: - didAddBarButtonItemTapped
 
@@ -49,7 +55,8 @@ func presentAddAlert() {
             newItem.done = false
             
             self.saveItems()
-            self.fetch()
+            self.loadItems()
+            print("ekledi")
         } else {
             self.presentWarningAlert()
         }
@@ -67,7 +74,7 @@ func presentAddAlert() {
             let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Item")
             let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
             try! self.managedObjectContext.execute(deleteRequest)
-            self.fetch()
+            self.loadItems()
             
         }
     }
@@ -152,15 +159,28 @@ func presentAddAlert() {
         self.tableView.reloadData()
     }
     
-    func fetch(with request: NSFetchRequest<Item> = Item.fetchRequest()) {
+    func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest(), predicate: NSPredicate? = nil) {
+        
+        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
+        
+        if let addtionalPredicate = predicate {
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, addtionalPredicate])
+        } else {
+            request.predicate = categoryPredicate
+        }
+
         
         do {
             data = try managedObjectContext.fetch(request)
         } catch {
             print("Error fetching data from context \(error)")
         }
+        
         tableView.reloadData()
+        
     }
+    
+
     
     //    MARK: - Swipe Actions
     
@@ -170,7 +190,7 @@ func presentAddAlert() {
                                                title: "Delete") { _, _, _ in
             self.managedObjectContext.delete(self.data[indexPath.row])
             self.saveItems()
-            self.fetch()
+            self.loadItems()
         }
         let editActions = UIContextualAction(style: .normal,
                                              title: "Düzenle",
@@ -207,17 +227,18 @@ func presentAddAlert() {
 extension TableViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         let request : NSFetchRequest<Item> = Item.fetchRequest()
-        request.predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
         request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
         
-        fetch(with: request)
-        
+        loadItems(with: request, predicate: predicate)
+   
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchBar.text?.count == 0 {
-            fetch()
+    if searchBar.text?.count == 0 {
+        loadItems()
             
+//        çarpıya bastığımızda klavyenin ve yazar komutunun kapanması için
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()
             }
@@ -226,5 +247,7 @@ extension TableViewController: UISearchBarDelegate {
     
     
 }
+
+
 
 
