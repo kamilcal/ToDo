@@ -77,17 +77,19 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Item" id="zLX-fk-lVm">
-                        <barButtonItem key="leftBarButtonItem" systemItem="trash" id="YrL-7D-ikg">
-                            <color key="tintColor" systemColor="systemRedColor"/>
-                            <connections>
-                                <action selector="didRemoveBarButtonItemTapped:" destination="fAd-hB-vVr" id="tFS-6Z-5OQ"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="qlE-F5-eRZ">
-                            <connections>
-                                <action selector="didAddBarButtonItemTapped:" destination="fAd-hB-vVr" id="m4j-kN-gnE"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="qlE-F5-eRZ">
+                                <connections>
+                                    <action selector="didAddBarButtonItemTapped:" destination="fAd-hB-vVr" id="m4j-kN-gnE"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="trash" id="YrL-7D-ikg">
+                                <color key="tintColor" systemColor="systemRedColor"/>
+                                <connections>
+                                    <action selector="didRemoveBarButtonItemTapped:" destination="fAd-hB-vVr" id="tFS-6Z-5OQ"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="searchBar" destination="ySc-pE-asQ" id="aiY-PN-uQK"/>

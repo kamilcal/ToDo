@@ -87,10 +87,10 @@ class CategoryTableViewController: UITableViewController {
         presentAddAlert()
     }
         func presentAddAlert() {
-            presentAlert(title: "Yeni Eleman Ekle",
+            presentAlert(title: "Add New Element",
                          message: nil,
-                         defaultButtonTitle: "Ekle",
-                         cancelButtonTitle: "Vazgeç",
+                         defaultButtonTitle: "Add",
+                         cancelButtonTitle: "Cancel",
                          isTextFieldAvaible: true,
                          defaultButtonHandler: { _ in
                 
@@ -118,7 +118,7 @@ class CategoryTableViewController: UITableViewController {
         
         func presentWarningAlert() {
             
-            presentAlert(title: "Uyarı", message: "Listeye Boş Eleman Ekleyemezsin", cancelButtonTitle: "Anladım")
+            presentAlert(title: "Notification", message: "You cannot add an empty element to the list.", cancelButtonTitle: "Done")
         }
         
         func presentAlert(title: String?,
@@ -159,12 +159,12 @@ class CategoryTableViewController: UITableViewController {
             self.loadCategories()
         }
         let editActions = UIContextualAction(style: .normal,
-                                             title: "Düzenle",
+                                             title: "Edit",
                                              handler: { _, _, _ in
-            self.presentAlert(title: "Elemanı Düzenle",
+            self.presentAlert(title: "Edit Elemet",
                               message: nil,
-                              defaultButtonTitle: "Düzenle",
-                              cancelButtonTitle: "Vazgeç",
+                              defaultButtonTitle: "Edit",
+                              cancelButtonTitle: "Cancel",
                               isTextFieldAvaible: true,
                               defaultButtonHandler: { _ in
                 

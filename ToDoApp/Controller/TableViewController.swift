@@ -13,6 +13,7 @@ class TableViewController: UITableViewController {
     var button = UIAlertController()
     
     @IBOutlet weak var searchBar: UISearchBar!
+
     
     var data = [Item]()
     
@@ -36,10 +37,10 @@ class TableViewController: UITableViewController {
     presentAddAlert()
 }
 func presentAddAlert() {
-    presentAlert(title: "Yeni Eleman Ekle",
+    presentAlert(title: "Add New Element",
                  message: nil,
-                 defaultButtonTitle: "Ekle",
-                 cancelButtonTitle: "Vazgeç",
+                 defaultButtonTitle: "Add",
+                 cancelButtonTitle: "Cancel",
                  isTextFieldAvaible: true,
                  defaultButtonHandler: { _ in
         
@@ -53,10 +54,10 @@ func presentAddAlert() {
             newItem.setValue(text, forKey: "title")
 //              newItem.title = textfield.text!
             newItem.done = false
+            newItem.parentCategory = self.selectedCategory
             
             self.saveItems()
             self.loadItems()
-            print("ekledi")
         } else {
             self.presentWarningAlert()
         }
@@ -66,10 +67,10 @@ func presentAddAlert() {
     //MARK: - didRemoveBarButtonItemTapped
     
     @IBAction func didRemoveBarButtonItemTapped(_ sender: UIBarButtonItem) {
-        presentAlert(title: "Uyarı",
-                     message: "Listedeki tüm öğeleri silmek istediğinizden emin misiniz ?",
-                     defaultButtonTitle: "Evet",
-                     cancelButtonTitle: "Vazgeç") { _ in
+        presentAlert(title: "Notification",
+                     message: "Are you sure you want to delete all items in the list?",
+                     defaultButtonTitle: "Yes",
+                     cancelButtonTitle: "Cancel") { _ in
             
             let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Item")
             let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
@@ -116,7 +117,7 @@ func presentAddAlert() {
     
     func presentWarningAlert() {
         
-        presentAlert(title: "Uyarı", message: "Listeye Boş Eleman Ekleyemezsin", cancelButtonTitle: "Anladım")
+        presentAlert(title: "Notification", message: "You cannot add an empty element to the list.", cancelButtonTitle: "Done")
     }
     
     func presentAlert(title: String?,
@@ -193,12 +194,12 @@ func presentAddAlert() {
             self.loadItems()
         }
         let editActions = UIContextualAction(style: .normal,
-                                             title: "Düzenle",
+                                             title: "Edit",
                                              handler: { _, _, _ in
-            self.presentAlert(title: "Elemanı Düzenle",
+            self.presentAlert(title: "Edit Element",
                               message: nil,
-                              defaultButtonTitle: "Düzenle",
-                              cancelButtonTitle: "Vazgeç",
+                              defaultButtonTitle: "Edit",
+                              cancelButtonTitle: "Cancel",
                               isTextFieldAvaible: true,
                               defaultButtonHandler: { _ in
                 
@@ -238,7 +239,6 @@ extension TableViewController: UISearchBarDelegate {
     if searchBar.text?.count == 0 {
         loadItems()
             
-//        çarpıya bastığımızda klavyenin ve yazar komutunun kapanması için
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()
             }
