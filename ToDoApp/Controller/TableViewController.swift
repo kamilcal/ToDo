@@ -72,11 +72,17 @@ func presentAddAlert() {
                      defaultButtonTitle: "Yes",
                      cancelButtonTitle: "Cancel") { _ in
             
-            let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Item")
-            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
-            try! self.managedObjectContext.execute(deleteRequest)
-            self.loadItems()
+//            let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Item")
+//            let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+//            try! self.managedObjectContext.execute(deleteRequest)
+//            self.loadItems()
+//Executing deleteObjects results in deleting not only selected objects, but also all all objects as well ??
             
+            for item in self.data {
+                self.managedObjectContext.delete(item)
+                    }
+
+            self.loadItems()
         }
     }
     // MARK: - Table view data source
@@ -162,7 +168,7 @@ func presentAddAlert() {
     
     func loadItems(with request: NSFetchRequest<Item> = Item.fetchRequest(), predicate: NSPredicate? = nil) {
         
-        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
+        let categoryPredicate =  NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
         
         if let addtionalPredicate = predicate {
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, addtionalPredicate])
@@ -209,6 +215,7 @@ func presentAddAlert() {
                     
                     if ((self.managedObjectContext.hasChanges) != nil) {
                         self.saveItems()
+                        self.loadItems()
                     }
                     self.tableView.reloadData()
                 } else {

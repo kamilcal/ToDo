@@ -170,7 +170,7 @@ class CategoryTableViewController: UITableViewController {
                 
                 let text = self.button.textFields?.first?.text
                 if text != "" {
-                    self.categoryData[indexPath.row].setValue(text, forKey: "title")
+                    self.categoryData[indexPath.row].setValue(text, forKey: "name")
                     
                     if ((self.context.hasChanges) != nil) {
                         self.saveCategories()
